@@ -5,19 +5,19 @@
 #include <iostream>
 #include <string>
 
-class Book
+struct Book
 {
    Book(std::string title, std::string author, std::string genre);
    virtual void displayInfo() const;
 };
 
-class Fiction: public Book
+struct Fiction: public Book
 {
    Fiction(std::string title, std::string author, std::string genre);
    void displayInfo() const override;
 };
 
-class NonFiction: public Book
+struct NonFiction: public Book
 {
    NonFiction(std::string title, std::string author, std::string genre);
    void displayInfo() const override;

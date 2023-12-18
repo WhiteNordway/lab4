@@ -1,5 +1,12 @@
 #include "modules/book.h"
 #include "modules/menu.h"
+#include <bits/stdc++.h>
+#include <map>
+using std::cout;
+using std::cin;
+using std::string;
+using std::map;
+
 
 /*
 Управление данными в библиотеке
@@ -33,5 +40,107 @@
 
 int main()
 {
+   Menu menu;
 
+   cout << "Hello and welcome to the library.";
+   menu.help();
+   char option;
+   
+   const map<string, BookAttribute> _attributesMap{
+      {"title", Title}, {"author", Author}, {"genre", Genre}};
+
+   while (true)
+   {
+      cout << "$ Select option: ";
+      cin >> option;
+      switch (option)
+      {
+      case 'h':
+         menu.help();
+         break;
+      case 0:
+         return EXIT_SUCCESS;
+      case 1:
+         {
+            cout << "\nEnter name of the file (without .txt): ";
+            string fileName;
+            menu.getFromFile(fileName);
+         }
+         break;
+      case 2:
+         {
+            cout << "\nEnter name of the file (without .txt): ";
+            string fileName;
+            menu.saveToFile(fileName);
+         }
+         break;
+      case 3:
+         {
+            const char *delim = " %% ";
+            cout << "\nEnter data in format: title %% author %% genre" << std::endl;
+            string data;
+            cin >> data;
+            const auto beg = data.begin();
+            const auto end = data.end();
+
+            size_t title_end = data.find(delim);
+            if (title_end == string::npos)
+            {
+               cout << "\n~ Invalid input format" << std::endl;
+               continue;
+            }
+            size_t author_end = data.find(delim, title_end + 4);
+            if (author_end == string::npos)
+            {
+               cout << "\n~ Invalid input format" << std::endl;
+               continue;
+            }
+
+            string title(beg, beg + title_end);
+            string author(beg + title_end, beg + author_end);
+            string genre(beg + author_end, end);
+
+            if (title.empty() || author.empty() || genre.empty())
+               std::cout << "\n~ You must pass all the parameters" << std::endl;
+            else
+               menu.addBook(title, author, genre);
+         }
+      case 4:
+         {
+            const char *delim = " %% ";
+            cout << "\nEnter data in format: title %% author" << std::endl;
+            string data;
+            cin >> data;
+            const auto beg = data.begin();
+            const auto end = data.end();
+
+            size_t title_end = data.find(delim);
+            if (title_end == string::npos)
+            {
+               cout << "\n~ Invalid input format" << std::endl;
+               continue;
+            }
+
+            string title(beg, beg + title_end);
+            string author(beg + title_end, end);
+
+            if (title.empty() || author.empty())
+               std::cout << "\n~ You must pass all the parameters" << std::endl;
+            else
+               menu.searchBook(BookAttributes(title, author));
+         }
+      case 5:
+         {
+            cout << "\nEnter the attribute (title, author or genre)" << std::endl;
+            string attribute;
+            cin >> attribute;
+            if (_attributesMap.find(attribute) == _attributesMap.end())
+               std::cout << "\n~ Invalid attribute" << std::endl;
+            else
+               menu.displayByAttribute(_attributesMap.at(attribute));
+         }
+      default:
+         cout << "\nUnexisting option. Type \"h\" for help";
+      }
+   }
 }

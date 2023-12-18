@@ -1,50 +1,54 @@
 #include "menu.h"
 #include "book.h"
+#include "book_supportive_classes.h"
+
 #include <iostream>
-using std::cout;
 #include <string>
 using std::string;
-#include <map>
-using std::map;
+#include <unordered_map>
+using std::unordered_map;
 #include <initializer_list>
-
-
-template <typename T1, typename T2>
-struct Pair
-{
-    T1 first;
-    T2 second;
-    
-    Pair() {}
-    Pair(T1 v1, T2 v2): first(v1), second(v2) {}
-};
-using BookAttributes = Pair<string, string>;
 
 
 struct Menu
 {
 
-    void addBook();
+    void addBook(string title, string author, string genre);
 
-    void searchBook();
+    void searchBook(BookAttributes attributes);
 
-    void sortBooksByAuthor();
+    void displayByAttribute(BookAttribute attribute);
 
     void saveToFile(const string &filename);
 
     void getFromFile(const string &filename);
 
+    void help()
+    {
+        std::cout << "Available commands: \n"
+        << "You can type \"h\" to see this list again."
+        << "\n0 — Exit"
+        << "\n1 — Get data from file"
+        << "\n2 — Load data to file"
+        << "\n3 — Add book to the library"
+        << "\n4 — Search book in the library"
+        << "\n5 — Display the books sorted by attribute" << std::endl;
+    }
+
 private:
+
     class Library
     {   
-        map<BookAttributes, Book> _books;
-        Library(std::initializer_list<Pair<BookAttributes, Book>> lst) 
+        unordered_map<BookAttributes, Book> _books;
+        Library();
+
+    public:
+        Library(std::initializer_list<Pair<BookAttributes, Book>> lst): Library() 
         {
             for (auto &pair: lst)
             {
                 const BookAttributes &ba = pair.first;
                 const Book &b = pair.second;
-                if (!_books.contains(ba))
             }
         }
     };
