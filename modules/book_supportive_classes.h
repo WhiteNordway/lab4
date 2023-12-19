@@ -10,16 +10,15 @@ struct Pair
     T1 first;
     T2 second;
     
-    Pair();
     Pair(T1 v1, T2 v2);
 };
 using stringPair = Pair<std::string, std::string>;
 
 
-struct BookCore: private stringPair
+struct BookCore:
 {
-    const std::string &title;
-    const std::string &author; 
+    const std::string title;
+    const std::string author; 
     BookCore(std::string title, std::string author);
 };
 

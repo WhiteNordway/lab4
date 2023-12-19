@@ -5,64 +5,59 @@
 #include <iostream>
 #include <string>
 using std::string;
-#include <unordered_map>
 using std::unordered_map;
-#include <initializer_list>
 
 
-struct Menu
+void Menu::addBooks(string title, string author, string genre, int quantity)
 {
-    void addBooks(string title, string author, string genre, int quantity);
+  BookCore* ptr = new Book(title, author, genre);
+  _books[ptr] = quantity;
+}
 
-    void deleteBook(BookCore attributes, int quantity);
+void Menu::deleteBook(const BookCore *book, int quantity)
+{
+  unsigned bookQuantity = _books[book];
+  if (quantity <= 0)
+  {
+    std::cerr << "Invalid quantity" << std::endl;
+    return;
+  }
+  if (quantity > bookQuantity)
+  {
+    std::cerr << "Entered quantity is bigger then book`s one (" << bookQuantity << ')' 
+  }
+ 
+}
 
-    void searchBook(BookCore attributes);
+void Menu::searchBook(const BookCore* book)
+{
 
-    void displayByAttribute(BookAttribute attribute);
+}
 
-    void saveToFile(const string &filename);
+void Menu::displayByAttribute(BookAttribute attribute)
+{
 
-    void getFromFile(const string &filename);
+}
 
-    void help()
-    {
-        std::cout << "Available commands: \n"
-        << "You can type \"h\" to see this list again."
-        << "\n0 — Exit"
-        << "\n1 — Get data from file"
-        << "\n2 — Load data to file"
-        << "\n3 — Add one or several identical books to the library"
-        << "\n4 — Delete one or several identical books from the library"
-        << "\n5 — Search book in the library"
-        << "\n6 — Display the books sorted by attribute" << std::endl;
-    }
+void Menu::saveToFile(const string& filename)
+{
 
-private:
+}
 
-    class Library
-    {   
-        /*
-        $ Book — quantity
-        $ Нужен доступ к книге по её имени и автору. ? Book не подходит как ключ, потому что для поиска придётся создавать экземпляр Book
-        $ 
-        $ Нужно где-то хранить имеющиеся книги. Требуется вставка, удаление и поиск. 
-        $ Нужно использовать имеющуюся структуру Book.
+void Menu::getFromFile(const string& filename)
+{
 
-        Решение:
-        Почему бы для поиска просто не использовать экземпляр класса?
+}
 
-        */
-        unordered_map<Book, unsigned> _books;
-        Library();
-
-    public:
-        Library(std::initializer_list<Pair<BookCore, Book>> lst): Library() 
-        {
-            for (auto &pair: lst)
-            {
-                const BookCore &ba = pair.first;
-                const Book &b = pair.second;
-            }
-        }
-    };
-};
+void Menu::help()
+{
+    std::cout << "Available commands: \n"
+    << "You can type \"h\" to see this list again."
+    << "\n0 — Exit"
+    << "\n1 — Get data from file"
+    << "\n2 — Load data to file"
+    << "\n3 — Add one or several identical books to the library"
+    << "\n4 — Delete one or several identical books from the library"
+    << "\n5 — Search book in the library"
+    << "\n6 — Display the books sorted by attribute" << std::endl;
+}

@@ -171,7 +171,9 @@ int main()
                 continue;
             }
             
-            menu.deleteBook(BookCore(title, author), quantity);
+            const BookCore* book = new BookCore(title, author);
+            menu.deleteBook(book, quantity);
+            delete book;
         }
     case 5:  // Search book
         {
@@ -195,7 +197,11 @@ int main()
             if (title.empty() || author.empty())
                 std::cerr << "\n~ You must pass all the parameters" << std::endl;
             else
-                menu.searchBook(BookCore(title, author));
+            {
+              const BookCore* book = new BookCore(title, author);
+              menu.deleteBook(book);
+              delete book;
+            }
         }
     case 6:  // Display the library
         {

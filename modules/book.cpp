@@ -1,44 +1,38 @@
-#include "book_supportive_classes.h"
-#include <iostream>
+#include "book.h"
 using std::cout;
 using std::endl;
-#include <string>
 using std::string;
 
 
-struct Book: public BookCore
-{
-    const string genre;
-    Book(string title, string author, string genre): BookCore(title, author), genre(genre) {}
+// Book
+Book::Book(string title, string author, string genre): 
+    BookCore(title, author), genre(genre) {}
     
-    virtual void displayInfo() const
-    {
+virtual void Book::displayInfo() const
+{
         cout << "//////\nTitle: \"" << title << "\"\n"
         << "Author: " << author << '\n'
         << "Genre: " << genre << endl;
-    }
-};
+}
 
 
-struct Fiction: public Book
+// Fiction
+Fiction::Fiction(string title, string author, string genre):
+    Book(title, author, genre) {}
+
+void Fiction::displayInfo() const override
 {
-    Fiction(string title, string author, string genre): Book(title, author, genre) {}
-
-    void displayInfo() const override
-    {
-        Book::displayInfo();
-        cout << "Super-genre: Fiction" << endl;
-    }
-};
+    Book::displayInfo();
+    cout << "Super-genre: Fiction" << endl;
+}
 
 
-struct NonFiction: public Book
+// NonFiction
+NonFiction::NonFiction(string title, string author, string genre): 
+    Book(title, author, genre) {}
+
+void NonFiction::displayInfo() const override
 {
-    NonFiction(string title, string author, string genre): Book(title, author, genre) {}
-
-    void displayInfo() const override
-    {
-        Book::displayInfo();
-        cout << "Super-genre: Nonfiction" << endl;
-    }
-};
+    Book::displayInfo();
+    cout << "Super-genre: Nonfiction" << endl;
+}
