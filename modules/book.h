@@ -2,10 +2,11 @@
 #define BOOK_H_
 
 
+#include "book_supportive_classes.h"
 #include <iostream>
 #include <string>
 
-struct Book
+struct Book: private BookCore
 {
    Book(std::string title, std::string author, std::string genre);
    virtual void displayInfo() const;

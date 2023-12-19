@@ -10,9 +10,19 @@ struct Pair
     T1 first;
     T2 second;
     
-    Pair() {}
-    Pair(T1 v1, T2 v2): first(v1), second(v2) {}
+    Pair();
+    Pair(T1 v1, T2 v2);
 };
+using stringPair = Pair<std::string, std::string>;
+
+
+struct BookCore: private stringPair
+{
+    const std::string &title;
+    const std::string &author; 
+    BookCore(std::string title, std::string author);
+};
+
 
 enum BookAttribute
 {
@@ -20,9 +30,5 @@ enum BookAttribute
    Author,
    Genre
 };
-
-
-using BookAttributes = Pair<std::string, std::string>;
-
 
 #endif

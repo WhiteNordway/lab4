@@ -8,9 +8,11 @@
 
 struct Menu
 {
-    void addBook(std::string title, std::string author, std::string genre);
+    void addBooks(std::string title, std::string author, std::string genre, int quantity);
 
-    void searchBook(BookAttributes attributes);
+    void deleteBook(BookCore attributes, int quantity);
+
+    void searchBook(BookCore attributes);
 
     void displayByAttribute(BookAttribute attribute);
 

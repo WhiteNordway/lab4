@@ -12,10 +12,11 @@ using std::unordered_map;
 
 struct Menu
 {
+    void addBooks(string title, string author, string genre, int quantity);
 
-    void addBook(string title, string author, string genre);
+    void deleteBook(BookCore attributes, int quantity);
 
-    void searchBook(BookAttributes attributes);
+    void searchBook(BookCore attributes);
 
     void displayByAttribute(BookAttribute attribute);
 
@@ -30,24 +31,36 @@ struct Menu
         << "\n0 — Exit"
         << "\n1 — Get data from file"
         << "\n2 — Load data to file"
-        << "\n3 — Add book to the library"
-        << "\n4 — Search book in the library"
-        << "\n5 — Display the books sorted by attribute" << std::endl;
+        << "\n3 — Add one or several identical books to the library"
+        << "\n4 — Delete one or several identical books from the library"
+        << "\n5 — Search book in the library"
+        << "\n6 — Display the books sorted by attribute" << std::endl;
     }
 
 private:
 
     class Library
     {   
-        unordered_map<BookAttributes, Book> _books;
+        /*
+        $ Book — quantity
+        $ Нужен доступ к книге по её имени и автору. ? Book не подходит как ключ, потому что для поиска придётся создавать экземпляр Book
+        $ 
+        $ Нужно где-то хранить имеющиеся книги. Требуется вставка, удаление и поиск. 
+        $ Нужно использовать имеющуюся структуру Book.
+
+        Решение:
+        Почему бы для поиска просто не использовать экземпляр класса?
+
+        */
+        unordered_map<Book, unsigned> _books;
         Library();
 
     public:
-        Library(std::initializer_list<Pair<BookAttributes, Book>> lst): Library() 
+        Library(std::initializer_list<Pair<BookCore, Book>> lst): Library() 
         {
             for (auto &pair: lst)
             {
-                const BookAttributes &ba = pair.first;
+                const BookCore &ba = pair.first;
                 const Book &b = pair.second;
             }
         }

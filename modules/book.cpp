@@ -1,3 +1,4 @@
+#include "book_supportive_classes.h"
 #include <iostream>
 using std::cout;
 using std::endl;
@@ -5,10 +6,10 @@ using std::endl;
 using std::string;
 
 
-struct Book
+struct Book: public BookCore
 {
-    const string title, author, genre;
-    Book(string title, string author, string genre): title(title), author(author), genre(genre) {}
+    const string genre;
+    Book(string title, string author, string genre): BookCore(title, author), genre(genre) {}
     
     virtual void displayInfo() const
     {
