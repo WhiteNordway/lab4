@@ -34,6 +34,8 @@ public:
 
     void getFromFile(const std::string &filename);
 
+    void exit();
+
     void help();
 };
 

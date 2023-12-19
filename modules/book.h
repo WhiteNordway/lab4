@@ -6,7 +6,7 @@
 #include <iostream>
 #include <string>
 
-struct Book: private BookCore
+struct Book: public BookCore
 {
    Book(std::string title, std::string author, std::string genre);
    virtual void displayInfo() const;

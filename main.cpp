@@ -59,6 +59,7 @@ int main()
         menu.help();
         break;
     case 0:
+        menu.exit();
         return EXIT_SUCCESS;
     case 1:
         {
